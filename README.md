@@ -1,75 +1,88 @@
 # RUNS Standard Library
 
 🏠 **[DGS Overview](https://github.com/decentralized-game-standard)**  
-· 🏃 **[RUNS](https://github.com/decentralized-game-standard/runs-standard)**  
+· 🏃 **[RUNS Protocol](https://github.com/decentralized-game-standard/runs-standard)**  
 · 📦 **[AEMS](https://github.com/decentralized-game-standard/aems-standard)**  
 · ⚡ **[WOCS](https://github.com/decentralized-game-standard/wocs-standard)**  
-· 🔤 **[Ludic](https://github.com/decentralized-game-standard/ludic-notation-standard)**
+· 🔤 **[Ludic](https://github.com/decentralized-game-standard/ludic-notation-standard)**  
+· ❓ **[FAQ](https://github.com/decentralized-game-standard/.github/blob/main/profile/FAQ.md)**
 
 > **Status**: Community-Curated Examples / RFC  
 > **Version**: 0.1.0
 
 ## The Shared Palette for RUNS
 
-The **RUNS Standard Library** is a collection of **recommended, optional primitives**—data shapes (Fields) and granular Processor examples—that accelerate interoperability across games, mods, and runtimes.
+The **RUNS Standard Library** provides a collection of **recommended, optional primitives**—data shapes (Fields) and granular Processor examples—that accelerate interoperability across games, mods, and runtimes.
 
-It is **not** part of the mandatory RUNS Protocol. You can ignore it entirely and still build fully compliant RUNS games with custom schemas. But targeting these primitives unlocks instant composability: a movement Processor from one game drives transforms in another, mods drop in seamlessly, and ecosystems share "pigments" without negotiation.
+It is **not** part of the mandatory RUNS Protocol. You can ignore it entirely and still build fully compliant RUNS implementations with custom schemas.
 
-Curated openly by the community, this library evolves organically. Widely adopted suggestions become the de facto starting point for new projects—lowering barriers while preserving full freedom.
+Targeting these exact primitives unlocks instant composability: a movement Processor from one bundle drives transforms in another, mods integrate seamlessly, and the ecosystem shares reusable "pigments" without prior negotiation.
 
-For permissionless distribution (e.g., via Nostr relays), all examples here are plain-text: serializable schemas, declarative Processor definitions, and bundle graphs.
+Curated openly by the community, this library evolves organically. Widely adopted primitives become the de facto foundation for new projects—lowering barriers while preserving complete freedom.
+
+For permissionless, enduring distribution, all examples here are plain-text: serializable schemas, declarative Processor definitions, and bundle graphs—published by convention as Nostr events with provenance chains.
 
 ## Why Use the Standard Library?
 
-- **Instant Interoperability** — Shared Fields let unrelated packages compose without custom bridges.
-- **Multi-Scale Mixing** — Start with syscall-granular ops, wire into bundles, bundle those into systems—all uniform.
-- **Lower Onboarding** — Beginners prototype quickly; experts extend or replace.
-- **Ecosystem Momentum** — Popular primitives attract more tools, runtimes, and mods.
-- **Honest Longevity** — Conventions separate enduring gameplay rules from transient performance tricks.
+- **Instant Interoperability** — Exact shared Fields enable unrelated packages to compose without adapters.
+- **Multi-Scale Remix** — Granular atoms wire into mid-level bundles, which bundle into systems—all uniform and provenance-chained.
+- **Rapid Prototyping** — Beginners combine high-level bundles for playable sketches in hours.
+- **Ecosystem Momentum** — Popular primitives attract more tools, optimizations, and extensions.
+- **Centuries-Scale Endurance** — Plain-text, self-describing chains survive platforms and authors.
 
-Using the library is a convention, not a requirement. It’s the "shared palette" that makes decentralized composition practical.
+Using the library is a strong convention, not a requirement. It’s the shared palette that makes decentralized, timeless composition practical.
 
 ## Core Philosophy
 
-- **Minimal and Neutral** — No genre assumptions, no performance tricks baked in.
-- **Plain-Text First** — Examples in human-readable, distributable formats.
-- **Granular to Hierarchical** — Primitives are tiny atoms; bundling builds complexity.
-- **Community-Driven** — Anyone can propose additions/changes via PR or WOCS bounty.
+- **Minimal and Neutral** — No genre bias, no baked-in performance assumptions.
+- **Plain-Text Nostr-Native** — Human-readable, relay-distributable, tamper-proof.
+- **Granular to Hierarchical** — Ultra-fine primitives bundle into composites, preserving explicitness to the atoms.
+- **Community-Driven** — Proposals via PRs, issues, or WOCS coordination.
+- **Exact for Interop** — Implement these `runs:` shapes precisely when targeting shared ecosystem packages.
 
-## Recommended Fields (The Vocabulary)
+## Namespace Best Practices
 
-These suggested Field schemas provide a common tongue. Define them on Records as needed.
+All library primitives use the reserved `runs:` prefix—see the [RUNS Protocol Namespace Conventions](https://github.com/decentralized-game-standard/runs-standard#namespace-conventions) for full rules.
 
-| Prefix | Field Name          | Type                                      | Description                          |
-|--------|---------------------|-------------------------------------------|--------------------------------------|
-| `runs` | transform           | struct { position: vec3, rotation: quat } | Spatial placement                    |
-| `runs` | velocity            | vec3                                      | Linear velocity                      |
-| `runs` | angular_velocity    | vec3                                      | Rotational velocity                  |
-| `runs` | delta_time          | float                                     | Frame timestep (provided by runtime) |
-| `runs` | input_intent        | struct { move: vec2, look: vec2, jump: bool } | Player/controller intent          |
-| `runs` | health              | float                                     | Generic damageable value             |
-| `runs` | team_id             | u32                                       | Affiliation for rules                |
+- Implement `runs:` schemas **exactly** (keys, field names, types, semantics) for public packages claiming library compatibility.
+- Do **not** deviate or rename in shared bundles—exact matching guarantees seamless composition.
+- Ecosystem extensions: Use custom umbrella prefixes with bundle manifests (Nostr events anchoring version, note_id, dependencies).
+- Publish primitives and bundles as plain-text events for permissionless replication and provenance chaining—from raw atoms to full systems.
 
-Schemas are versioned JSON-like for serialization:
+## Recommended Fields (The Common Tongue)
+
+These exact Field schemas provide the starting vocabulary. Define them on Records as needed.
+
+| Prefix  | Field Name       | Type                                      | Description                     |
+|---------|------------------|-------------------------------------------|---------------------------------|
+| `runs`  | transform        | struct { position: vec3, rotation: quat } | Spatial placement               |
+| `runs`  | velocity         | vec3                                      | Linear velocity                 |
+| `runs`  | angular_velocity | vec3                                      | Rotational velocity             |
+| `runs`  | delta_time       | float                                     | Frame timestep (runtime-provided)|
+| `runs`  | input_intent     | struct { move: vec2, look: vec2, jump: bool } | Player intent                |
+| `runs`  | health           | float                                     | Generic damageable value        |
+| `runs`  | team_id          | u32                                       | Affiliation grouping            |
+
+Schemas are versioned plain-text for serialization and Nostr distribution:
 
 ```json
 {
   "runs:transform": {
-    "position": { "type": "vec3", "default": [0,0,0] },
-    "rotation": { "type": "quat", "default": [0,0,0,1] }
+    "position": { "type": "vec3", "default": [0, 0, 0] },
+    "rotation": { "type": "quat", "default": [0, 0, 0, 1] }
   }
 }
 ```
 
-Custom Fields remain fully supported—mix freely.
+Custom Fields remain fully supported—mix freely with exact `runs:` shapes.
 
 ## Primitive Processors (The Pigments)
 
-Granular, pure operations—suggested in a simple declarative plain-text format for readability and Nostr distribution.
+Granular, pure operations—suggested in a simple declarative plain-text format (`.runs-prim`) for readability and relay distribution.
 
-Format (`.runs-prim`):
+Example format:
 
-```
+```text
 processor add_vec3
 inputs:
   a: vec3
@@ -82,20 +95,19 @@ result.y = a.y + b.y
 result.z = a.z + b.z
 ```
 
-Examples:
+Suggested primitives:
+- `mul_vec3_scalar` — Scale vectors
+- `integrate_velocity` — Euler integration: `transform.position += velocity * delta_time`
+- `apply_input_intent` — Map intent to acceleration/velocity
+- `query_entities` — Basic selection (has_field, etc.)
 
-- `mul_vec3_scalar` — Scale vectors.
-- `integrate_velocity` — Basic Euler: `transform.position += velocity * delta_time`.
-- `apply_input_intent` — Map intent to velocity.
-- `select_entities` — Basic query primitives (has_field, etc.).
-
-These are starting atoms—wire them freely in Networks.
+These are the atomic pigments—wire them in Networks or bundle into higher-scale Processors.
 
 ## Bundling Examples (Mixing Paints)
 
-Bundles are sub-Networks acting as higher-scale Processors.
+Bundles are sub-Networks packaged as reusable meta-Processors, with provenance to underlying primitives.
 
-Example: Simple movement bundle (`.runs-bundle` graph):
+Example simple movement bundle (`.runs-bundle` graph):
 
 ```yaml
 bundle basic_movement
@@ -107,30 +119,26 @@ outputs:
   transform: runs:transform
 
 wires:
-  - mul: mul_vec3_scalar(velocity, delta_time)
-  - add: add_vec3(transform.position, mul.result)
+  - scaled: mul_vec3_scalar(velocity, delta_time)
+  - new_pos: add_vec3(transform.position, scaled.result)
 output:
-  transform.position = add.result
+  transform.position = new_pos.result
 ```
 
-Higher levels:
-- Character controller bundles movement + grounding + jump.
-- Physics island bundles multiple controllers + resolution.
-
-Every bundle remains a first-class Processor—recursively composable.
+Higher levels chain further: character controllers bundle movement + grounding, physics systems bundle multiple controllers + resolution. Every bundle remains a uniform Processor—recursively composable with full note ID lineage.
 
 ## Processor Authoring Styles (Semantic vs. Realization)
 
-To support extreme longevity while enabling performance, the library distinguishes two **conventions** for Processor definitions—all plain-text, all composable:
+To enable extreme longevity alongside performance, the library distinguishes two **conventions**—both plain-text, both targeting exact Fields:
 
-**Gameplay Logic Processors (Recommended for Shared Primitives)**  
-- Style: Constrained, SSA-like declarative syntax.  
-- Focus: Pure semantic intent (rules, state transitions)—close to math, no hardware assumptions.  
-- Horizon: Millennia—readable/reimplementable by hand centuries later.  
-- Use for: Core rules (integration, collision resolution, input→intent).  
+**Gameplay Logic Processors (Recommended for Library Primitives)**  
+- Style: Constrained, declarative SSA-like syntax.  
+- Focus: Pure semantic rules—no hardware assumptions.  
+- Horizon: Millennia—hand-reimplementable centuries later.  
 
 Example (`integrate_velocity.runs-prim`):
-```
+
+```text
 processor integrate_velocity
 inputs:
   position: runs:vec3
@@ -142,14 +150,14 @@ outputs:
 position += velocity * delta_time
 ```
 
-**Execution Realization Processors (Optional for Fidelity)**  
-- Style: Extended declarative with hint sections (or more expressive graphs).  
-- Focus: Platform guidance (SIMD, approximations, GPU offload)—ignored by minimal runtimes.  
-- Horizon: Decades—evolves with hardware; cleverness applied by runtimes.  
-- Use for: Optimized variants of semantic logic.  
+**Execution Realization Processors (Optional for Optimization)**  
+- Style: Extended declarative with hint sections.  
+- Focus: Platform guidance (SIMD, approximations, offload)—safely ignored.  
+- Horizon: Decades—evolves with hardware.  
 
 Example (`integrate_velocity_realized.runs-prim`):
-```
+
+```text
 processor integrate_velocity_realized
 inputs:
   position: runs:vec3
@@ -163,31 +171,26 @@ core:
 
 hints:
   vectorize: simd
-  approximate: fast_mul optional
+  approximate: fast_mul
   target: gpu_compute if_available
 ```
 
-Both styles target the same Fields. Runtimes interpret core semantics universally; advanced ones apply hints for perf. Prefer pure declarative for library contributions—realizations compete in Ecosystem packages.
-
-## Authoring Conventions
-
-- Declarative core for all shared examples.
-- Hints optional and runtime-specific.
-- Plain-text distribution always.
+Prefer pure semantic style for library contributions. Realizations belong in ecosystem packages.
 
 ## Contributing
 
-This library thrives on community input:
-- Propose new Fields/Primitives via issues/PRs.
-- Use WOCS for bountied additions.
-- Fork and specialize—adoption decides what sticks.
+This library lives on community input:
 
-Target these for sharing; innovate beyond for uniqueness.
+- Propose new primitives via issues/PRs.
+- Use WOCS for bountied additions or curation.
+- Fork and specialize—adoption and relay replication decide endurance.
+
+Target exact `runs:` shapes for sharing; innovate beyond for uniqueness.
 
 ## Summary
 
-The RUNS Standard Library is your optional starter kit: shared Fields and granular primitives that make decentralized, enduring games easier to build and compose.
+The RUNS Standard Library is your optional starter palette: exact shared Fields and granular primitives that make decentralized, enduring games easier to remix and compose—from atomic pigments to timeless masterpieces.
 
-Mix the pigments. Build something timeless.
+Mix freely. Build something that outlives us all.
 
 **MIT License** — Fork, extend, share freely.
