@@ -1,18 +1,18 @@
-# RUNS Standard Library
+# RUNS Library
 
-🏠 **[DGS Overview](https://github.com/decentralized-game-standard)**  
-· 🏃 **[RUNS Protocol](https://github.com/decentralized-game-standard/runs-standard)**  
-· 📦 **[AEMS](https://github.com/decentralized-game-standard/aems-standard)**  
-· ⚡ **[WOCS](https://github.com/decentralized-game-standard/wocs-standard)**  
-· 🔤 **[Ludic](https://github.com/decentralized-game-standard/ludic-notation-standard)**  
-· ❓ **[FAQ](https://github.com/decentralized-game-standard/.github/blob/main/profile/FAQ.md)**
+🏠 **[EGS Overview](https://github.com/enduring-game-standard)**  
+· 🏃 **[RUNS Spec](https://github.com/enduring-game-standard/runs-spec)**  
+· 📦 **[AEMS](https://github.com/enduring-game-standard/aems-schema)**  
+· ⚡ **[WOCS](https://github.com/enduring-game-standard/wocs-protocol)**  
+· 🎭 **[MAPS](https://github.com/enduring-game-standard/maps-notation)**  
+· ❓ **[FAQ](https://github.com/enduring-game-standard/.github/blob/main/profile/FAQ.md)**
 
 > **Status**: Community-Curated Examples / RFC  
 > **Version**: 0.1.0
 
 ## The Shared Palette for RUNS
 
-The **RUNS Standard Library** provides a collection of **recommended, optional primitives**—data shapes (Fields) and granular Processor examples—that accelerate interoperability across games, mods, and runtimes.
+The **RUNS Library** provides a collection of **recommended, optional primitives**—data shapes (Fields) and granular Processor examples—that accelerate interoperability across games, mods, and runtimes.
 
 It is **not** part of the mandatory RUNS Protocol. You can ignore it entirely and still build fully compliant RUNS implementations with custom schemas.
 
@@ -42,7 +42,7 @@ Using the library is a strong convention, not a requirement. It’s the shared p
 
 ## Namespace Best Practices
 
-All library primitives use the reserved `runs:` prefix—see the [RUNS Protocol Namespace Conventions](https://github.com/decentralized-game-standard/runs-standard#namespace-conventions) for full rules.
+All library primitives use the reserved `runs:` prefix—see the [RUNS Spec Namespace Conventions](https://github.com/enduring-game-standard/runs-spec#namespace-conventions) for full rules.
 
 - Implement `runs:` schemas **exactly** (keys, field names, types, semantics) for public packages claiming library compatibility.
 - Do **not** deviate or rename in shared bundles—exact matching guarantees seamless composition.
@@ -189,7 +189,7 @@ Target exact `runs:` shapes for sharing; innovate beyond for uniqueness.
 
 ## Summary
 
-The RUNS Standard Library is your optional starter palette: exact shared Fields and granular primitives that make decentralized, enduring games easier to remix and compose—from atomic pigments to timeless masterpieces.
+The RUNS Library is your optional starter palette: exact shared Fields and granular primitives that make enduring games easier to remix and compose—from atomic pigments to timeless masterpieces.
 
 Mix freely. Build something that outlives us all.
 
