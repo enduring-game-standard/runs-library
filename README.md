@@ -14,11 +14,11 @@
 
 ## The Shared Palette for RUNS
 
-The [RUNS Protocol](https://github.com/enduring-game-standard/runs-spec) defines the mandatory rules for composable game execution: Records, Fields, Processors, and Networks. Any runtime that implements these rules is fully compliant. No additional vocabulary is required.
+The [RUNS Protocol](https://github.com/enduring-game-standard/runs-spec) defines the mandatory rules for composable game logic: Records, Fields, Processors, and Networks. Any runtime that implements these rules is fully compliant. No additional vocabulary is required.
 
 The problem is practical. Without a shared vocabulary of data shapes, every Processor needs adapters to connect with every other Processor. Two developers who independently define a position field — one as `{x, y, z}`, the other as `{pos: [float, float, float]}` — produce components that cannot compose without translation. Shared shapes eliminate that friction.
 
-The **RUNS Library** is an optional, community-curated collection of recommended Fields and Processors that solve this problem. It provides exact data shapes — `runs:transform`, `runs:velocity`, `runs:input_intent` — that any developer can target for instant interoperability. A movement Processor from one bundle drives transforms in another without adapters, mods integrate with games they were not built for, and new projects inherit working primitives instead of reinventing them.
+The **RUNS Library** is an optional, community-curated collection of recommended Fields and Processors that solve this problem. It provides exact data shapes — `runs:transform`, `runs:velocity`, `runs:input_intent` — that any developer can target for instant interoperability. A movement Processor from one bundle drives transforms in another without adapters, variants compose with games they were not originally built for, and new projects inherit working primitives instead of reinventing them.
 
 The Library is not part of the RUNS Protocol. You can ignore it entirely and build fully compliant RUNS implementations with custom schemas. But targeting Library shapes is a strong convention that makes decentralized composition practical.
 
@@ -154,7 +154,7 @@ Prefer pure semantic style for Library contributions. Realizations belong in eco
 
 ## Connection to Notation and Craft
 
-Library Fields are the concrete runtime shapes that [MAPS notation](https://github.com/enduring-game-standard/maps-notation) targets. The connection is direct: a `runs:transform` Field is the runtime representation of a MAPS State node describing spatial placement. A `basic_movement` bundle is the runtime realization of a MAPS Verb describing how position changes over time. A designer who sketches a combat system in notation is writing the skeleton that Library-compatible Processors execute.
+Library Fields are the concrete shapes that [MAPS notation](https://github.com/enduring-game-standard/maps-notation) targets. The connection is direct: a `runs:transform` Field is the implementation of a MAPS State node describing spatial placement. A `basic_movement` bundle is the implementation of a MAPS Verb describing how position changes over time. A designer who sketches a combat system in MAPS notation is writing the blueprint from which Library-compatible RUNS source is built.
 
 This bridge between notation and runtime is what makes cumulative craft practical. A designer's intent, captured in notation, maps onto shared data shapes that any compliant runtime can execute. The notation survives because the shapes it targets are plain-text, self-describing, and maintained in an open commons.
 
@@ -163,7 +163,7 @@ This bridge between notation and runtime is what makes cumulative craft practica
 | Component | Role | Library Relationship |
 |-----------|------|---------------------|
 | [RUNS Protocol](https://github.com/enduring-game-standard/runs-spec) | Mandatory execution rules | Library extends the Protocol with optional recommended schemas and Processors |
-| [AEMS](https://github.com/enduring-game-standard/aems-schema) | Persistent entities | AEMS Entities provide the durable data that populates Records carrying Library Fields at runtime |
+| [AEMS](https://github.com/enduring-game-standard/aems-schema) | Persistent entities | AEMS Entity/Manifestation definitions are compiled into Records carrying Library Fields; Asset/State events persist player data at lifecycle boundaries |
 | [MAPS](https://github.com/enduring-game-standard/maps-notation) | Design notation | Library Fields are the concrete shapes that MAPS notation States and Verbs target |
 | [WOCS](https://github.com/enduring-game-standard/wocs-protocol) | Coordination and services | WOCS coordinates bounties for Library contributions, curation, and relay hosting |
 
