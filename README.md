@@ -110,6 +110,7 @@ To enable long-term durability alongside runtime performance, the Library distin
 - Style: Constrained, declarative SSA-like syntax.
 - Focus: Pure semantic rules — no hardware assumptions.
 - Horizon: The logic is hand-reimplementable on any future platform.
+- This is Tier 1 in the RUNS compilation model: the enduring artifact. Gameplay logic Processors are expressed in a formal language, compiled by runtimes, and produce identical behavior on every platform.
 
 Example (`integrate_velocity.runs-prim`):
 
@@ -129,6 +130,7 @@ position += velocity * delta_time
 - Style: Extended declarative with hint sections.
 - Focus: Platform guidance (SIMD, approximations, offload) — safely ignored by runtimes that do not support them.
 - Horizon: Evolves with hardware; the core logic remains identical.
+- This is Tier 2 guidance: hints for the runtime compiler. The `core` section is the enduring Tier 1 source; the `hints` section is platform-specific optimization that varies by runtime.
 
 Example (`integrate_velocity_realized.runs-prim`):
 
@@ -172,7 +174,7 @@ This bridge between notation and runtime is what makes cumulative craft practica
 The Library maintains the same restraint discipline as the RUNS Protocol:
 
 - **No genre-specific schemas** — The Library provides neutral primitives (transform, velocity, health). Genre-specific data shapes (inventory systems, dialogue trees, faction graphs) belong in ecosystem packages.
-- **No rendering primitives** — Visual representation is a runtime concern, not a shared data shape.
+- **No rendering or non-interactable simulation primitives** — Visual representation, non-interactable ragdolls, decorative cloth, particle effects, and other non-gameplay simulations are runtime concerns, not shared data shapes. Simulations whose output feeds back into game state (physics objects the player can manipulate, ragdolls that block doorways or can be picked up) are gameplay — they belong in Processors.
 - **No networking or transport** — The Library defines local data shapes. Multiplayer synchronization is handled by implementations and coordinated through WOCS.
 - **No runtime requirements** — Using Library shapes is a convention, not a compliance gate. Any runtime that implements the RUNS Protocol is fully compliant regardless of Library adoption.
 - **No implementation language** — Processor definitions are declarative specifications of pure transformations. Runtimes implement them in whatever language suits their platform.
