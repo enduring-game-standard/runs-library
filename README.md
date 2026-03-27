@@ -26,15 +26,34 @@ All Library primitives are plain-text, self-describing definitions published as 
 
 ## Recommended Fields
 
-These exact Field schemas provide the starting vocabulary for interoperable RUNS components. Define them on Records as needed.
+These exact Field schemas provide the starting vocabulary for interoperable RUNS components. They are organized by where they sit relative to a Network's [Runtime Interface](https://github.com/enduring-game-standard/runs-spec#the-mental-model).
+
+**Boundary Fields** cross the line between game logic and runtime. Inbound Fields are what a runtime provides before each tick (timing, player input); outbound Fields are what game logic produces for the runtime to present (spatial state, match lifecycle). Runtime authors implement inbound shapes and consume outbound shapes. Game authors target boundary shapes for instant portability across runtimes.
+
+**Game Logic Fields** are internal to Networks — runtimes never read or write them directly. They carry the state that Processors transform during the gameplay tick. Games extend Library boundary Fields with game-specific Records when needed (e.g., `spacewar:player_controls` extends `runs:input_intent` with a hyperspace boolean; `doom:mobj` extends `runs:transform` with sector linkage). The distinction follows the spec's decision test: if a Field's output feeds back into game state that other Processors read, it is game logic; if it originates from the platform or exists solely for presentation, it is a boundary Field.
+
+### Boundary Fields (Runtime Interface)
+
+**Inbound** — Runtime provides, game logic reads:
+
+| Prefix  | Field Name   | Type                                          | Description                      |
+|---------|--------------|-----------------------------------------------|----------------------------------|
+| `runs`  | delta_time   | float                                         | Frame timestep                   |
+| `runs`  | input_intent | struct { move: vec2, look: vec2, jump: bool } | Player intent                    |
+
+**Outbound** — Game logic produces, runtime reads:
+
+| Prefix  | Field Name       | Type                                      | Description                              |
+|---------|------------------|-------------------------------------------|------------------------------------------|
+| `runs`  | render_transform | struct { position: vec3, rotation: quat } | Spatial state projected for rendering    |
+
+### Game Logic Fields
 
 | Prefix  | Field Name       | Type                                      | Description                     |
 |---------|------------------|-------------------------------------------|---------------------------------|
 | `runs`  | transform        | struct { position: vec3, rotation: quat } | Spatial placement               |
 | `runs`  | velocity         | vec3                                      | Linear velocity                 |
 | `runs`  | angular_velocity | vec3                                      | Rotational velocity             |
-| `runs`  | delta_time       | float                                     | Frame timestep (runtime-provided)|
-| `runs`  | input_intent     | struct { move: vec2, look: vec2, jump: bool } | Player intent                |
 | `runs`  | health           | float                                     | Generic damageable value        |
 | `runs`  | team_id          | u32                                       | Affiliation grouping            |
 
@@ -174,7 +193,7 @@ This bridge between notation and runtime is what makes cumulative craft practica
 The Library maintains the same restraint discipline as the RUNS Protocol:
 
 - **No genre-specific schemas** — The Library provides neutral primitives (transform, velocity, health). Genre-specific data shapes (inventory systems, dialogue trees, faction graphs) belong in ecosystem packages.
-- **No rendering or non-interactable simulation primitives** — Visual representation, non-interactable ragdolls, decorative cloth, particle effects, and other non-gameplay simulations are runtime concerns, not shared data shapes. Simulations whose output feeds back into game state (physics objects the player can manipulate, ragdolls that block doorways or can be picked up) are gameplay — they belong in Processors.
+- **No rendering or non-interactable simulation primitives** — Visual representation, non-interactable ragdolls, decorative cloth, particle effects, and other non-gameplay simulations are runtime concerns, not shared data shapes. (Boundary Fields like `runs:render_transform` define *what* crosses the game-logic/runtime line — the spatial data the runtime needs to render — but not *how* to render it. Rendering implementation remains a runtime concern.) Simulations whose output feeds back into game state (physics objects the player can manipulate, ragdolls that block doorways or can be picked up) are gameplay — they belong in Processors.
 - **No networking or transport** — The Library defines local data shapes. Multiplayer synchronization is handled by implementations and coordinated through WOCS.
 - **No runtime requirements** — Using Library shapes is a convention, not a compliance gate. Any runtime that implements the RUNS Protocol is fully compliant regardless of Library adoption.
 - **No implementation language** — Processor definitions are declarative specifications of pure transformations. Runtimes implement them in whatever language suits their platform.
