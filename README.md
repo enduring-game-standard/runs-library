@@ -24,28 +24,31 @@ The Library is not part of the RUNS Protocol. You can ignore it entirely and bui
 
 All Library primitives are plain-text, self-describing definitions published as Nostr events by convention. Nostr is not incidental. It is the open commons through which Library primitives become discoverable, inheritable, and remixable across developers, projects, and generations — without gatekeepers or platform dependencies.
 
-## Recommended Fields
+## Recommended Records and Fields
 
-These exact Field schemas provide the starting vocabulary for interoperable RUNS components. They are organized by where they sit relative to a Network's [Runtime Interface](https://github.com/enduring-game-standard/runs-spec#the-mental-model).
+These exact schemas provide the starting vocabulary for interoperable RUNS components. They are organized by where they sit relative to a Network's [Runtime Interface](https://github.com/enduring-game-standard/runs-spec#the-mental-model).
 
-**Boundary Fields** cross the line between game logic and runtime. Inbound Fields are what a runtime provides before each tick (timing, player input); outbound Fields are what game logic produces for the runtime to present (spatial state, match lifecycle). Runtime authors implement inbound shapes and consume outbound shapes. Game authors target boundary shapes for instant portability across runtimes.
+**Boundary Records** sit at the edge of a Network. `requires:` Records are the inbound API (runtime provides before each tick). `produces:` Records are the outbound API (game logic produces, runtime reads after each tick). Runtime authors implement inbound shapes and consume outbound shapes. Game authors target boundary shapes for instant portability across runtimes.
 
-**Game Logic Fields** are internal to Networks — runtimes never read or write them directly. They carry the state that Processors transform during the gameplay tick. Games extend Library boundary Fields with game-specific Records when needed (e.g., `spacewar:player_controls` extends `runs:input_intent` with a hyperspace boolean; `doom:mobj` extends `runs:transform` with sector linkage). The distinction follows the spec's decision test: if a Field's output feeds back into game state that other Processors read, it is game logic; if it originates from the platform or exists solely for presentation, it is a boundary Field.
+**Game Logic Records** are the `state:` Records internal to Networks — runtimes never read or write them directly. They carry the state that Processors transform during the gameplay tick. Games extend Library boundary Records with game-specific Records when needed (e.g., `spacewar:player_controls` extends `runs:input_intent` with a hyperspace boolean; `doom:mobj` extends `runs:transform` with sector linkage). The distinction follows the spec's decision test: if a Field is written to a `state:` Record that any game logic Processor reads, it is game logic; if it originates from the platform or exists solely for presentation, it is a boundary Field.
 
-### Boundary Fields (Runtime Interface)
+### Boundary Records (Runtime Interface)
 
-**Inbound** — Runtime provides, game logic reads:
+**Inbound** (`requires:`) — Runtime provides, game logic reads:
 
 | Prefix  | Field Name   | Type                                          | Description                      |
 |---------|--------------|-----------------------------------------------|----------------------------------|
 | `runs`  | delta_time   | float                                         | Frame timestep                   |
+| `runs`  | frame_number | uint32                                        | Tick counter for deterministic sequencing |
 | `runs`  | input_intent | struct { move: vec2, look: vec2, jump: bool } | Player intent                    |
 
-**Outbound** — Game logic produces, runtime reads:
+**Outbound** (`produces:`) — Game logic produces, runtime reads:
 
 | Prefix  | Field Name       | Type                                      | Description                              |
 |---------|------------------|-------------------------------------------|------------------------------------------|
 | `runs`  | render_transform | struct { position: vec3, rotation: quat } | Spatial state projected for rendering    |
+| `runs`  | match_result     | struct { state: enum, scores: int[] }     | Match lifecycle and scoring              |
+| `runs`  | audio_trigger    | struct { event: enum, position: vec3 }    | Spatial audio event                      |
 
 ### Game Logic Fields
 
@@ -172,6 +175,10 @@ hints:
 ```
 
 Prefer pure semantic style for Library contributions. Realizations belong in ecosystem packages where runtime-specific optimization is warranted.
+
+### Hardware Timing as Game Logic
+
+Some historical games used CPU performance as a gameplay mechanic — for example, Space Invaders increases alien speed as the entity count decreases because the CPU finishes the update loop faster with fewer entities. In RUNS, this behavior is captured as explicit game logic: a lookup table or formula in a `state:` Record that produces the exact speed curve, derived from profiling the original hardware. The game logic encodes the timing profile as data, ensuring deterministic behavior across all platforms without coupling game logic to runtime performance.
 
 ## Connection to Notation and Craft
 
