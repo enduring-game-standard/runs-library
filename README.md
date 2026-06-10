@@ -177,11 +177,13 @@ Some historical games used CPU performance as a gameplay mechanic — for exampl
 
 ## Connection to Notation and Craft
 
-Library Fields are the concrete shapes that [MAPS notation](https://github.com/enduring-game-standard/maps-notation) targets. The connection is direct: a `runs:transform` Field is the implementation of a MAPS State node describing spatial placement. A `basic_movement` bundle is the implementation of a MAPS Verb describing how position changes over time. A designer who sketches a combat system in MAPS notation is writing the blueprint from which Library-compatible RUNS source is built.
+Library Fields are the concrete shapes that [MAPS notation](https://github.com/enduring-game-standard/maps-notation) targets — the term-for-term mapping between notation and source is owned by the [EGS correspondence map](https://github.com/enduring-game-standard/.github/blob/main/profile/CORRESPONDENCE.md). A designer who sketches a combat system in MAPS notation is writing the blueprint from which Library-compatible RUNS source is built.
 
 This bridge between notation and runtime is what makes cumulative craft practical. A designer's intent, captured in notation, maps onto shared data shapes that any compliant runtime can execute. The notation survives because the shapes it targets are plain-text, self-describing, and maintained in an open commons.
 
 ## Integration with EGS
+
+The full inter-protocol topology is owned by the [EGS correspondence map](https://github.com/enduring-game-standard/.github/blob/main/profile/CORRESPONDENCE.md). The Library's own edges:
 
 | Component | Role | Library Relationship |
 |-----------|------|---------------------|
