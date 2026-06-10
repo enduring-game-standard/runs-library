@@ -2,8 +2,12 @@
 
 🏠 **[EGS Overview](https://github.com/enduring-game-standard)** · 📦 **[AEMS](https://github.com/enduring-game-standard/aems-schema)** · 🎯 **[AEMS Conventions](https://github.com/enduring-game-standard/aems-conventions)** · 🔧 **[RUNS](https://github.com/enduring-game-standard/runs-spec)** · 📖 **[RUNS Library](https://github.com/enduring-game-standard/runs-library)** · ⚡ **[WOCS](https://github.com/enduring-game-standard/wocs-protocol)** · 🎼 **[MAPS](https://github.com/enduring-game-standard/maps-notation)** · 🎶 **[MAPS Library](https://github.com/enduring-game-standard/maps-library)** · ❓ **[FAQ](https://github.com/enduring-game-standard/.github/blob/main/profile/FAQ.md)** · 🔤 **[Glossary](https://github.com/enduring-game-standard/.github/blob/main/profile/README.md#glossary)**
 
-> **Status**: Community-Curated Examples / RFC
-> **Version**: 0.1.0
+> **Status**: Design stage. The shapes and patterns here are **conceptual examples** —
+> illustrations of ideas, with no implementation behind them, possibly wrong. No DIGS
+> evaluator exists yet and the commons is empty, so nothing here is a reference
+> implementation and nothing is blessed. When real implementations exist, they will be
+> authored against working tooling and published to the commons; these examples hold
+> no privileged claim to become them.
 
 ---
 
