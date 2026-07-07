@@ -82,14 +82,13 @@ and RUNS requires the split to be named. Likewise:
 - A **divergent compilation** — a build substituting non-bit-identical algorithms
   under a deviation manifest (see
   [DIGS §Divergent Compilation](https://github.com/enduring-game-standard/runs-spec/blob/main/DIGS_EXPRESSION_LANGUAGE.md#divergent-compilation))
-  — is a variant, with the manifest as its honest, machine-readable diff from
-  canon.
+  — is a variant, with the manifest as its machine-readable diff from canon.
 
 "Any rules on any hardware" is mechanical exactly where the target can hold the
 identical Rules region: porting then touches only Realization. Where the target
-cannot, the tradeoff is real, it lands in the Rules, and the result is honestly a
-variant. Some targets are out of a game's reach by its own declared contracts, and
-the type declarations say so — that is the honest answer, not a failure.
+cannot, the tradeoff lands in the Rules and the result is a variant. Some targets
+are out of a game's reach by its own declared contracts, and the type declarations
+say so.
 
 ## Fixed Timestep
 
