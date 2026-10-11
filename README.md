@@ -192,7 +192,7 @@ The full inter-protocol topology is owned by the [EGS correspondence map](https:
 | Component | Role | Library Relationship |
 |-----------|------|---------------------|
 | [RUNS Protocol](https://github.com/enduring-game-standard/runs-spec) | Mandatory execution rules | Library extends the Protocol with optional recommended schemas and Processors |
-| [AEMS](https://github.com/enduring-game-standard/aems-schema) | Persistent entities | AEMS Entity/Manifestation definitions are compiled into Records carrying Library Fields; Asset/State events persist player data at lifecycle boundaries |
+| [AEMS](https://github.com/enduring-game-standard/aems-schema) | Persistent entities | Optional seams only. No AEMS layer is a Record. Manifestation data may be baked into Records carrying Library Fields at build time; Asset/State events may persist player data at lifecycle boundaries |
 | [MAPS](https://github.com/enduring-game-standard/maps-notation) | Design notation | Library Fields are the concrete shapes that MAPS notation States and Verbs target |
 | [WOCS](https://github.com/enduring-game-standard/wocs-protocol) | Coordination and services | WOCS coordinates bounties for Library contributions, curation, and relay hosting |
 
